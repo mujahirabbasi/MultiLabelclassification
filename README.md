@@ -11,22 +11,26 @@ This repository contains a Python script to perform multilabel classification us
    
 2. Set up a virtual environment and install dependencies:
 
-On Windows:
+    On Windows:
+    ```bash
+        python -m venv env
+        env\Scripts\activate
 
-python -m venv env
-env\Scripts\activate
 
-On macOS/Linux:
+    On macOS/Linux:
+    ```bash
+        python3 -m venv env
+        source env/bin/activate
 
-python3 -m venv env
-source env/bin/activate
+    Install the dependencies:
+    ```bash
+        pip install -r requirements.txt
 
-Install the dependencies:
+    Run the script:
+    ```bash
+    python multilabel_classification_ml_models.py
 
-pip install -r requirements.txt
+    python multilabel_classification_dnn.py
 
-Run the script:
 
-python multilabel_classification_ml_models.py
 
-python multilabel_classification_dnn.py
