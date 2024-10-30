@@ -23,11 +23,11 @@ for col in ['Growth Label', 'Volatility Label', 'Momentum Label']:
     df[col] = label_encoder.fit_transform(df[col])
 
 # Separate features and multilabel target columns
-X = df.drop(columns=['Ticker', 'Growth Label', 'Volatility Label', 'Momentum Label'])  # Adjust if needed
+X = df.drop(columns=['Ticker', 'Growth Label', 'Volatility Label', 'Momentum Label']) 
 y = df[['Growth Label', 'Volatility Label', 'Momentum Label']].values
 
 # Split data into training and validation sets
-X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.3, random_state=42)
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Define the deep neural network architecture
 def create_model(input_dim, output_dim):
@@ -36,7 +36,7 @@ def create_model(input_dim, output_dim):
         Dropout(0.3),
         Dense(64, activation='relu'),
         Dropout(0.3),
-        Dense(output_dim, activation='sigmoid')  # Sigmoid for multilabel classification
+        Dense(output_dim, activation='sigmoid')  
     ])
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
     return model
@@ -65,8 +65,7 @@ history = model.fit(
 y_val_pred_prob = model.predict(X_val)
 y_val_pred = (y_val_pred_prob > 0.5).astype(int)  # Apply threshold to get binary predictions
 
-print (y_val)
-print (y_val_pred)
+
 
 # Evaluation metrics for multilabel classification
 hamming = hamming_loss(y_val, y_val_pred)

@@ -23,26 +23,27 @@ for col in ['Growth Label', 'Volatility Label', 'Momentum Label']:
     df[col] = label_encoder.fit_transform(df[col])
 
 # Separate features and multilabel target columns
-X = df.drop(columns=['Ticker', 'Growth Label', 'Volatility Label', 'Momentum Label'])  # Adjust if needed
+X = df.drop(columns=['Ticker', 'Growth Label', 'Volatility Label', 'Momentum Label'])  
 y = df[['Growth Label', 'Volatility Label', 'Momentum Label']]
 
 # Calculate class weights for each target label
 class_weights = {}
 for col in y.columns:
     value_counts = y[col].value_counts(normalize=True)
-    if abs(value_counts[1] - value_counts[0]) > 0.5:  # If imbalance > 50%
+    # If imbalance > 50%
+    if abs(value_counts[1] - value_counts[0]) > 0.5:  
         class_weights[col] = {0: value_counts[1], 1: value_counts[0]}
 print("\nClass Weights:\n", class_weights)
 
 # Split data into training and validation sets
-X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.3, random_state=42)
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Define probabilistic multilabel classifiers with class weights where applicable
 classifiers = {
     "Logistic Regression": MultiOutputClassifier(
         LogisticRegression(max_iter=200, class_weight='balanced')
     ),
-    "Naive Bayes": MultiOutputClassifier(GaussianNB()),  # Does not support class weights
+    "Naive Bayes": MultiOutputClassifier(GaussianNB()), 
     "Random Forest": MultiOutputClassifier(
         RandomForestClassifier(n_estimators=100, random_state=42, class_weight='balanced')
     ),
