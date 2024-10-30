@@ -63,14 +63,14 @@ history = model.fit(
 
 # Predict on the validation set
 y_val_pred_prob = model.predict(X_val)
-y_val_pred = (y_val_pred_prob > 0.5).astype(int)  # Apply threshold to get binary predictions
+y_val_pred = (y_val_pred_prob > 0.5).astype(int)  
 
 
 
 # Evaluation metrics for multilabel classification
 hamming = hamming_loss(y_val, y_val_pred)
 f1 = f1_score(y_val, y_val_pred, average='micro')
-subset_accuracy = accuracy_score(y_val, y_val_pred)  # Exact match ratio
+subset_accuracy = accuracy_score(y_val, y_val_pred)  
 
 # Display performance
 print("\nDeep Neural Network Performance:")
