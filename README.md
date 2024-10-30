@@ -35,6 +35,3 @@ This repository contains Python scripts to perform multilabel classification usi
    python multilabel_classification_dnn.py
    ```
 
----
-
-This ensures all instructions appear consistently as code blocks.
